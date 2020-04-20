@@ -119,7 +119,7 @@ $('#Join-button').click(function(){/*클릭 이벤트가 발생하면 아래 기
 	/*alert('입력된 이름: ' + $('#name').val())*/
 	/* id를 부여함으로서 일반 도큐먼트에서 객체로 생성됨.*/
 	let member = {name:$('#name').val(), /*let으로 객체생성, html에서 입력받은 값을 객체에 저장*/
-				  userid:$('#name').val(),
+				  userid:$('#userid').val(),
 				  password:$('#password').val(),
 				  ssn:$('#ssn').val(),
 				  address:$('#address').val()}
@@ -130,8 +130,8 @@ $('#Join-button').click(function(){/*클릭 이벤트가 발생하면 아래 기
 		data: JSON.stringify(member),/*json을 String으로 바꿔라.*/
 		dataType: 'json', /*데이터타입은 json*/
 		contentType:'application/json', 
-		success:function(returnName){
-			alert(returnName+'님 회원가입 성공')
+		success:function(returnMember){
+			alert(returnMember.name+'님 회원가입 성공')
 		},
 		error: function(){
 			alert('회원가입 실패')

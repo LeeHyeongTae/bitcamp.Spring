@@ -9,11 +9,18 @@ public class MemberController {
 	public MemberService memberService;
 	
 	@PostMapping("/join")
-	public String add(@RequestBody Member member) {//controller는 무조건 응답이 있어야함!!
+	public Member add(@RequestBody Member member) {//controller는 무조건 응답이 있어야함!!
 		System.out.println(">>>>");
 		System.out.println(member.toString());
 		memberService = new MemberServiceImpl();
 		memberService.add(member);
-		return member.getName();
+		return member;
+	}
+	
+	@PostMapping("/login")
+	public Member login(@RequestBody Member member) {
+		memberService.login(member);
+		System.out.println(member);
+		return member;
 	}
 }

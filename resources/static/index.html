@@ -87,9 +87,9 @@ footer {
   <article>
    <form action="#">
    	<label>ID </label> <br>
-   	<input type="text"> <br>
+   	<input id="userid" type="text"> <br>
    	<label>PASSWORD</label><br>
-   	<input type="text"> <br>
+   	<input id="password" type="text"> <br>
    	<input id="login-button" type="button" value="로그인">
    	<input id="cancel-button" type="button" value="취소">
    	
@@ -105,12 +105,29 @@ $('#a-join').click(function(){
 
 })
 $('#a-login').click(function(){
-
+	
 })
 $('#a-third').click(function(){
 
 })
 $('#login-button').click(function(){
+	let member = {
+			userid:$('#userid').val(),
+			password:$('#password').val()
+			}
+	$.ajax({
+		url:'/login',
+		type:'post',
+		data: JSON.stringify(member),
+		dataType:'json',
+		contentType:'application/json',
+		sucess:function(returnMember){
+			alert(returnMember.name+'님 안녕하세요.')
+		},
+		error:function(){
+			alert('로그인 실패')
+		}
+	})
 
 })
 $('#cancel-button').click(function(){

@@ -81,4 +81,17 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 	}
+	@Override
+	public Member login(Member member) {
+		Member returnMember = null;
+		for(int i=0; i<count; i++) {
+			if(member.getUserid().equals(members[i].getUserid())&&
+					member.getPassword().equals(members[i].getPassword())) {
+				returnMember = members[i];
+				break;
+			}
+		}
+		
+		return returnMember;
+	}
 }
