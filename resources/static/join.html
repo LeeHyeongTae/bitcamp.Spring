@@ -125,13 +125,13 @@ $('#Join-button').click(function(){/*클릭 이벤트가 발생하면 아래 기
 				  address:$('#address').val()}
 	alert('입력된 주민번호 : ' + member.ssn)
 	$.ajax({
-		url:'',/*해당 주소로 보낸다.*/
+		url:'/join',/*해당 주소로 보낸다.*/
 		type:'post', /**/
 		data: JSON.stringify(member),/*json을 String으로 바꿔라.*/
 		dataType: 'json', /*데이터타입은 json*/
 		contentType:'application/json', 
-		success:function(){
-			alert('회원가입 성공')
+		success:function(returnName){
+			alert(returnName+'님 회원가입 성공')
 		},
 		error: function(){
 			alert('회원가입 실패')
