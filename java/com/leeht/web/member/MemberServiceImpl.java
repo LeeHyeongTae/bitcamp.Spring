@@ -1,5 +1,8 @@
 package com.leeht.web.member;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemberServiceImpl implements MemberService{
 	private Member[] members;
 	private int count;
@@ -82,16 +85,16 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 	@Override
-	public Member login(Member member) {
-		Member returnMember = null;
+	public boolean login(Member member) {
+		boolean ok = false;
 		for(int i=0; i<count; i++) {
 			if(member.getUserid().equals(members[i].getUserid())&&
 					member.getPassword().equals(members[i].getPassword())) {
-				returnMember = members[i];
+				ok = true;
 				break;
 			}
 		}
 		
-		return returnMember;
+		return ok;
 	}
 }
