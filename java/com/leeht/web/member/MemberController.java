@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +19,14 @@ public class MemberController {
 	@PostMapping("/join")
 	public Messenger add(@RequestBody Member member) {//controller는 무조건 응답이 있어야함!!
 		int current = memberService.count();
+		System.out.println(member+"add");
 		memberService.add(member);
-		int count = memberService.count();
-		return (count == current+1)?Messenger.SUCCESS:Messenger.FAIL;
+		return (memberService.count() == current+1)?Messenger.SUCCESS:Messenger.FAIL;
 	}
 	
 	@PostMapping("/login")
 	public Messenger login(@RequestBody Member member) {
+		System.out.println(member);
     return (memberService.login(member))? Messenger.SUCCESS:Messenger.FAIL;
 	}
 	

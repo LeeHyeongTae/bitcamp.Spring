@@ -15,6 +15,7 @@ public class GradeController {
 	
 	@PostMapping("/register")
 	public Messenger add(@RequestBody Grade grade) {
+		System.out.println(grade);
 	int current = gradeService.count();
 	gradeService.add(grade);
 	int count = gradeService.count();
@@ -23,15 +24,19 @@ public class GradeController {
 	
 	@PostMapping("/report")
 	public Credit report(@RequestBody Grade grade) {
+		System.out.println(grade);
+		gradeService.add(grade);
+		String credit = gradeService.grade(grade);
+		System.out.println(credit);
 		Credit result = Credit.F;
-		switch(gradeService.grade(grade)) {
+		switch(credit) {
 		case "A": result = Credit.A;  break;
 		case "B": result = Credit.B;  break;
 		case "C": result = Credit.C;  break;
 		case "D": result = Credit.D;  break;
 		case "E": result = Credit.E;  break;
 		}
-		
+		System.out.println(result);
 		return result;
 	}
 }

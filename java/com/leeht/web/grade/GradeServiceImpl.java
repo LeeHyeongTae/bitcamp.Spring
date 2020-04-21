@@ -67,13 +67,18 @@ public class GradeServiceImpl implements GradeService{
 	@Override
 	public String grade(Grade grade) {
 		String resultgrade = "F";
-		switch(average(grade)/10) {
-		case 9: resultgrade = "A"; break;
-		case 8: resultgrade = "B"; break;
-		case 7: resultgrade = "C"; break;
-		case 6: resultgrade = "D"; break;
-		case 5: resultgrade = "E"; break;
+//		for(int i=0; i<count; i++) {
+//			if(grade.getUserid().equals(grades[i].getUserid())) {
+				switch(average(grade)/10) {
+				case 9: resultgrade = "A"; break;
+				case 8: resultgrade = "B"; break;
+				case 7: resultgrade = "C"; break;
+				case 6: resultgrade = "D"; break;
+				case 5: resultgrade = "E"; break;
+//				}
+//			}
 		}
+				System.out.println(resultgrade);
 		return resultgrade;
 	}
 	@Override

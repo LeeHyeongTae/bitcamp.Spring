@@ -77,7 +77,7 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">Join</a></li>
+      <li><a id="a-first" href="../member/join.html">Join</a></li>
       <li><a id="a-second" href="../index.html">Login</a></li>
       <li><a id="a-third" href="#">...</a></li>
     </ul>
@@ -107,7 +107,7 @@ footer {
 <script type="text/javascript">
  $('#register-button').click(function(){
 	 $.ajax({
-		 url:'grade/register',
+		 url:'/grade/register',
 		 type:'post',
 		 data: JSON.stringify({
 			 userid:$('#userid').val(),
@@ -117,11 +117,11 @@ footer {
 			 java:$('#java').val()}),
 		 dataType:'json',
 	 	 contentType:'application/json',
-	 	 sucess: function(message){
+	 	 success: function(message){
 	 		 if(message === 'SUCCESS'){
 	 		 alert('입력 성공')
 	 		 }else{
-	 			alert('아이디 불일치')
+	 		 alert('아이디 불일치')
 	 		 }
 	 	 },
 	 	 error: function(){
@@ -131,17 +131,22 @@ footer {
  })
  $('#result-button').click(function(){
 	 $.ajax({
-		 url:'grade/report',
-		 type: 'post';
-	 	 data: JSON.stringify({
-	 		 userid:$('#userid').val()
-	 	 }),
+		 url:'/grade/report',
+		 type: 'post',
+		 data: JSON.stringify({
+			 userid:$('#userid').val(),
+			 korean:$('#korean').val(),
+			 english:$('#english').val(),
+			 math:$('#math').val(),
+			 java:$('#java').val()}),
 	 	 dataType:'json',
 	 	 contentType:'application/json',
-	 	 sucess: function(credit){
+	 	 success: function(credit){
 	 		 alert(credit)
 	 	 },
-	 	 error: function(){}
+	 	 error: function(){
+	 		 alert('네트워킹 실패')
+	 	 }
 	 })
  })
 </script>
