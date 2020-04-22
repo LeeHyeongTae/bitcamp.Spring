@@ -77,7 +77,7 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">성적표 입력</a></li>
+      <li><a id="a-first" href="/grade/register.html">성적 입력</a></li>
       <li><a id="a-second" href="../index.html">Login</a></li>
       <li><a id="a-third" href="#">...</a></li>
     </ul>
@@ -86,16 +86,8 @@ footer {
   <article>
    <form action="#">
    	<label>ID </label> <br>
-   	<input id="userid" type="text"/> <br>
-   	<label>Korean</label><br>
-   	<input id="korean" type="text"> <br>
-   	<label>English</label><br>
-   	<input id="english" type="text"> <br>
-   	<label>Math</label><br>
-   	<input id="math" type="text"> <br>
-   	<label>Java</label><br>
-   	<input id="java" type="text"> <br><br>
-   	<input id="register-button" type="button" value="점수등록">
+   	<input id="userid" type="text"/> <br><br>
+   	<input id="registerGo-button" type="button" value="점수등록">
    	<input id="result-button" type="button" value="총점, 평균, 학점보기">
    </form>
   </article>
@@ -105,7 +97,12 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-
+$.('#registerGo-button').click(function(){
+	location.href="/grade/register.html"
+})
+$.('#result-button').click(e =>{
+	
+})
 </script>
 </body>
 </html>

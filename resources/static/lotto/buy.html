@@ -71,7 +71,7 @@ footer {
 </head>
 <body>
 <header>
-  <h2>성적입력</h2>
+  <h2>로또 구매</h2>
 </header>
 
 <section>
@@ -87,16 +87,10 @@ footer {
    <form action="#">
    	<label>ID </label> <br>
    	<input id="userid" type="text"/> <br>
-   	<label>Korean</label><br>
-   	<input id="korean" type="text"> <br>
-   	<label>English</label><br>
-   	<input id="english" type="text"> <br>
-   	<label>Math</label><br>
-   	<input id="math" type="text"> <br>
-   	<label>Java</label><br>
-   	<input id="java" type="text"> <br><br>
-   	<input id="register-button" type="button" value="점수등록">
-   	<input id="result-button" type="button" value="총점, 평균, 학점보기">
+   	<label>로또 번호 입력(,로 분리해주세요.)</label><br>
+   	<input id="lottoNumber" type="text"> <br><br>
+   	<input id="buy_button" type="button" value="Buy">
+   	<input id="result_button" type="button" value="Result">
    </form>
    <div id="result"></div>
   </article>
@@ -106,24 +100,46 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-$('#register-button').click(e => {
-	e.preventDefault()
-	$.ajax({
-		url:'/grade/register',
-		type:'post',
-		data:JSON.stringify({
-			userid:$('#userid').val(),
-			korean:$('#korean').val(),
-			english:$('#english').val(),
-			math:$('#math').val(),
-			java:$('#java').val()
-			}),
+ $('#buy_button').click(e => {
+	 e.preventDefault()
+	 $.ajax({
+		 url:'/lotto/buy',
+		 type:'post',
+		 data:JSON.stringify({userid:$('#userid').val(),
+			 lottoNumber:$('#lottoNumber').val()}),
 		dataType:'json',
 		contentType:'application/json',
-		success: {},
-		error: {}
-	})
-})
+		
+		success: d => {
+			if (d === 'SUCCESS'){
+				alert('구매성공')
+			}else{
+				alert('구매실패')
+			}
+		},
+		error: (req, status, error) => {
+			alert(req.status + '\n' + req.responseText + '\n' + error)
+		}
+	 })
+ })
+  $('#result_button').click(e => {
+	  e.preventDefault()
+	  $.ajax({
+		  url:'/lotto/result/'+{userid:$('#userid').val()},
+		  type:'get',
+		  dataType:'json',
+		  contentType:'application/json',
+		  
+		  success: d => {
+			  alert(d)
+		  },
+		  error: (req, status, error)=>{
+			  alert(req.status + '\n' + req.responseText + '\n' + error)
+		  }
+		  
+	  })
+	  
+  })
 </script>
 </body>
 </html>

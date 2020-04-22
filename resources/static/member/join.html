@@ -105,16 +105,8 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-$('#a-first').click(function(){
-
-})
-$('#a-second').click(function(){
-
-})
-$('#a-third').click(function(){
-
-})
-$('#Join-button').click(function(){/*클릭 이벤트가 발생하면 아래 기능들을 실행*/
+$('#Join-button').click(e =>{/*클릭 이벤트가 발생하면 아래 기능들을 실행*/
+	e.preventDefault()
 	/*alert('입력된 이름: ' + $('#name').val())*/
 	/* id를 부여함으로서 일반 도큐먼트에서 객체로 생성됨.*/
 	$.ajax({
@@ -129,15 +121,16 @@ $('#Join-button').click(function(){/*클릭 이벤트가 발생하면 아래 기
 			  }),/*json을 String으로 바꿔라.*/
 		dataType: 'json', /*데이터타입은 json*/
 		contentType:'application/json', 
-		success:function(message){
-			if(message === 'SUCCESS'){
+		success: d => {
+			if(d === 'SUCCESS'){
 			location.href="../index.html"/**/				
 			}else{
 			location.href="join.html"
 			}
 		},
-		error: function(){
-			alert('회원가입 실패')
+		error: (request,status,error) => {
+			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error)
+
 		}
 	})
 	
