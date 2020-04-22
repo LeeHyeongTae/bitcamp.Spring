@@ -125,7 +125,7 @@ footer {
   $('#result_button').click(e => {
 	  e.preventDefault()
 	  $.ajax({
-		  url:'/lotto/result/'+{userid:$('#userid').val()},
+		  url:'/lotto/result/'+$('#userid').val(),
 		  type:'get',
 		  dataType:'json',
 		  contentType:'application/json',
@@ -133,7 +133,7 @@ footer {
 		  success: d => {
 			  alert(d)
 		  },
-		  error: (req, status, error)=>{
+		  error: (req, status, error) => {
 			  alert(req.status + '\n' + req.responseText + '\n' + error)
 		  }
 		  
