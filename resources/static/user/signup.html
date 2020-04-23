@@ -71,13 +71,13 @@ footer {
 </head>
 <body>
 <header>
-  <h2>관리자 등록</h2>
+  <h2>사용자 가입</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="a-home">Home</a></li>
+      <li><a id="a-home" href="#">Home</a></li>
     </ul>
   </nav>
   
@@ -93,8 +93,8 @@ footer {
    	<input id="ssn" type="text"> <br>
    	<label>ADDRESS</label><br>
    	<input id="address" type="text"> <br><br>
-   	<input id="Join-button" type="button" value="등록">
-   	<input id="cancel-button" type="button" value="취소">
+   	<input id="Join-button" type="button" value="회원가입">
+   	<input id="cancel-button" type="button" value="가입취소">
    </form>
   </article>
 </section>
@@ -103,44 +103,38 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
- $('#a-home').click( e=> {
-	 e.preventDefault()
-	 location.href="../index.html"
- })
- 
-$('#Join-button').click(e =>{/*클릭 이벤트가 발생하면 아래 기능들을 실행*/
-	e.preventDefault()
-	/*alert('입력된 이름: ' + $('#name').val())*/
-	/* id를 부여함으로서 일반 도큐먼트에서 객체로 생성됨.*/
-	$.ajax({
-		url:'/member/join',/*해당 주소로 보낸다. 앞의 도메인은 생략. /하고 리소스가 들어옴*/
-		type:'post', /**/
-		data: JSON.stringify({
-			  name:$('#name').val(), /*let으로 객체생성, html에서 입력받은 값을 객체에 저장*/
-			  userid:$('#userid').val(),
-			  password:$('#password').val(),
-			  ssn:$('#ssn').val(),
-			  address:$('#address').val()
-			  }),/*json을 String으로 바꿔라.*/
-		dataType: 'json', /*데이터타입은 json*/
-		contentType:'application/json', 
-		success: d => {
-			if(d === 'SUCCESS'){
-			location.href="../index.html"/**/				
-			}else{
-			location.href="join.html"
-			}
-		},
-		error: (request,status,error) => {
-			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error)
-
-		}
+	$('#a-home')
+		.css('cursor','pointer')
+		.click(e => {
+		e.preventDefault()
+		location.href="../index.html"
 	})
-	
-})
-$('#cancel-button').click(function(){
-	location.href="../index.html"
-})
+	$('#Join-button').click(e => {
+		e.preventDefault()
+		$.ajax({
+			url:'/user/signup',
+			type:'post',
+			data:JSON.stringify({
+				  name:$('#name').val(), /*let으로 객체생성, html에서 입력받은 값을 객체에 저장*/
+				  userid:$('#userid').val(),
+				  password:$('#password').val(),
+				  ssn:$('#ssn').val(),
+				  address:$('#address').val()
+				  }),
+			dataType:'json',
+			contentType:'application/json',
+			success: d => {
+				if(d === 'SUCCESS'){
+					location.href='signin.html'
+				}else{
+					location.href='signup.html'
+				}
+			},
+			error: (req, status, error) => {
+				alert(req.status + '\n'+ req.responseText+'\n'+error)
+			}
+		})
+	})
 </script>
 </body>
 </html>

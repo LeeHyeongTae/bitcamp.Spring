@@ -73,27 +73,24 @@ footer {
 <body>
 
 	<header>
-		<h2>관리자 로그인</h2>
+		<h2>사용자 로그인</h2>
 	</header>
 
 	<section>
 		<nav>
 			<ul>
-				<li><a id="a-join">관리자등록</a></li>
-				<li><a id="a-login">관리자접속</a></li>
-				<li><a id="a-signup">사용자가입</a></li>
-				<li><a id="a-signin">사용자로그인</a></li>
-
+				<li><a id="a-home">Home</a></li>
 			</ul>
 		</nav>
 
 		<article>
 			<form action="#">
-				<label>ID </label> <br> <input id="userid" type="text">
-				<br> <label>PASSWORD</label><br> <input id="password"
-					type="text"> <br> <input id="login-button"
-					type="button" value="로그인"> <input id="cancel-button"
-					type="button" value="취소">
+				<label>ID </label> <br> 
+				<input id="userid" type="text"><br> 
+				<label>PASSWORD</label><br> 
+				<input id="password"type="text"> <br> 
+					<input id="login-button"type="button" value="로그인"> 
+					<input id="cancel-button"type="button" value="취소">
 			</form>
 		</article>
 	</section>
@@ -102,57 +99,38 @@ footer {
 		<p>Footer</p>
 	</footer>
 	<script type="text/javascript">
-		$('#a-join')
+	$('#a-home')
 		.css('cursor','pointer')
 		.click(e => {
 			e.preventDefault()
-			location.href = "/member/join.html"
+			location.href="../index.html"
 		})
-		$('#a-login')
-			.css('cursor','pointer')
-			.click(e => {
-				e.preventDefault()
-				location.href = "index.html"
-		})
-		$('#a-signup')
-			.css('cursor','pointer')
-			.click(e => {
+	$('#login-button')
+		.click(e => {
 			e.preventDefault()
-			location.href = "../user/signup.html"
-		})
-		$('#a-signin')
-			.css('cursor','pointer')
-			.click(e => {
-			e.preventDefault()
-			location.href = "../user/signin.html"
-		})
-		$('#login-button').click(e => {
-			e.preventDefault()
-			$.ajax({
-				url : '/member/login',
-				type : 'post',
-				data : JSON.stringify({
-					userid : $('#userid').val(),
-					password : $('#password').val()
-				}),
-				dataType : 'json',
-				contentType : 'application/json',
-				success : d => {
-					if (d === 'SUCCESS') {
-						location.href = "/lotto/buy.html"
-					} else {
-						alert('로그인 실패')
-						location.href = "index.html"
-					}
-				},
-				error : (request,status,error) => {
-					alert("code = "+ request.status + " message = " + request.responseText + " error = " + error)
+		$.ajax({
+			url:'/user/signin',
+			type:'post',
+			data: JSON.stringify({
+				userid:$('#userid').val(),
+				password:$('#password').val()
+			}),
+			dataType:'json',
+			contentType:'application/json',
+			success: d => {
+				if(d.messenger === 'SUCCESS'){
+					location.href='mypage.html'
+				}else{
+					alert(d.messenger)
+					location.href='signin.html'
 				}
-			})
+			},
+			error: (req, status, error) => {
+				alert(req.status + '\n'+req.responseText+'\n'+error)
+			}
 		})
-		$('#cancel-button').click(e => {
-			e.preventDefault()
-		})
+		
+	})
 	</script>
 </body>
 </html>
