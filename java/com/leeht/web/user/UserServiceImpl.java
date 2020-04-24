@@ -12,29 +12,45 @@ public class UserServiceImpl implements UserService{
 	public UserServiceImpl() {
 		map = new HashMap<>();
 	}
+
 	@Override
 	public void signup(User user) {
 		map.put(user.getUserid(), user);
 	}
+
 	@Override
 	public int count() {
 		return map.size();
 	}
+
 	@Override
 	public User login(User user) {
-		User returnUser = null;
+		User signedUser = null;
 		if(map.containsKey(user.getUserid())) {
 			User u = detail(user.getUserid());
 			if(user.getPassword().equals(u.getPassword())) {
-				returnUser = u;
+				signedUser = u;
 			}
 		}
 		
-		return returnUser;
+		return signedUser;
 	}
+
 	@Override
 	public User detail(String userid) {
 		return (User) map.get(userid);
 	}
 
+	@Override
+	public boolean update(User user) {
+		map.replace(user.getUserid(), user);
+		return true;
+	}
+
+	@Override
+	public boolean remove(String userid) {
+		map.remove(userid);
+		return true;
+	}
+	
 }

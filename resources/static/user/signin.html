@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Spring Practice</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {
 	box-sizing: border-box;
@@ -119,6 +118,7 @@ footer {
 			contentType:'application/json',
 			success: d => {
 				if(d.messenger === 'SUCCESS'){
+					sessionStorage.setItem('userid',d.user.userid)
 					location.href='mypage.html'
 				}else{
 					alert(d.messenger)
@@ -126,7 +126,7 @@ footer {
 				}
 			},
 			error: (req, status, error) => {
-				alert(req.status + '\n'+req.responseText+'\n'+error)
+				alert(req.status+'\n'+req.responseText+'\n'+error)
 			}
 		})
 		

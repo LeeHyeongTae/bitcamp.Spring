@@ -1,10 +1,12 @@
 package com.leeht.web.lotto;
 
+
 import com.leeht.web.util.LottoResult;
 public interface LottoService {
 
-	void buy(Lotto lotto);
-	int count();
-	LottoResult result(String userid);
+	public void buy(Lotto lotto);
+	public int count();
+	public LottoResult result(String userid);
+	public Lotto detail(String userid);
 
 }

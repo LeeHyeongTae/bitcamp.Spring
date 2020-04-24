@@ -1,5 +1,7 @@
 package com.leeht.web.lotto;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -8,31 +10,27 @@ import com.leeht.web.util.LottoResult;
 
 @Service
 public class LottoServiceImpl implements LottoService {
-	private Lotto[] lottos;
-	private int count;
+	private Map<String, Object> lottos;
 
 	public LottoServiceImpl() {
-		lottos = new Lotto[10];
-		count = 0;
+		lottos = new HashMap<>();
 	}
 
 	@Override
 	public void buy(Lotto lotto) {
-		lottos[count] = lotto;
-		count++;
+		lottos.put(lotto.userid, lotto);
 	}
 
 	@Override
 	public int count() {
-		return count;
+		return lottos.size();
 	}
 
 	@Override
 	public LottoResult result(String userid) {
 		LottoResult result = null;
-		for (int i = 0; i < count; i++) {
-			if (userid.equals(lottos[i].userid)) {
-				switch (matchCount(lottos[i].lottoNumber)) {
+			if (lottos.containsKey(userid)) {
+				switch (0) {
 				case 6:
 					result = LottoResult.일등;
 					break;
@@ -52,39 +50,13 @@ public class LottoServiceImpl implements LottoService {
 					result = LottoResult.꽝;
 					break;
 				}
-			}
 		}
 		return result;
 	}
 
 	private int matchCount(String lottoNumber) {
-		int count = 0;
-		if(duplicate(lottoNumber)!=null) {
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 6; j++) {
-				if (duplicate(lottoNumber)[i] == radomNumbers()[j]) {
-					count++;
-					}
-				}
-			}
-		}
-		return count;
-	}
-
-	private int[] duplicate(String lottoNumber) {
-		int[] duplicated = new int[6];
-		for (int i = 0; i < duplicated.length; i++) {
-			duplicated[i] = Integer.parseInt(lottoNumber.split(",")[i]);
-		}
-		for (int i = 0; i < duplicated.length; i++) {
-			for (int j = 1; j < duplicated.length; j++) {
-				if (duplicated[i] == duplicated[j]) {
-					return duplicated;
-				}
-			}
-		}
 		
-		return duplicated;
+		return 0;
 	}
 
 	private int[] radomNumbers() {
@@ -99,6 +71,11 @@ public class LottoServiceImpl implements LottoService {
 			}
 		}
 		return randoms;
+	}
+
+	@Override
+	public Lotto detail(String userid) {
+		return (Lotto) lottos.get(userid);
 	}
 
 }
